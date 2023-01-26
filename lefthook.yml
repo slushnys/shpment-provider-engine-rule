@@ -1,0 +1,15 @@
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: '*.{js,ts}'
+      run: npx eslint --max-warnings 0 src {staged_files} --fix --cache=true && git add {staged_files}
+    prettier:
+      glob: '*.{ts,js,json,yml,yaml}'
+      run: npx prettier {staged_files} --ignore-path .gitignore --write && git add {staged_files}
+    type-check:
+      glob: '*.{js,ts}'
+      run: npm run check:types
+    test:
+      glob: '*.{js,ts}'
+      run: npm run test:unit
